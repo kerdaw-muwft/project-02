@@ -2,9 +2,11 @@ package project.crypto.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.crypto.model.Crypto;
 import project.crypto.service.CryptoService;
+import project.crypto.service.SortTypes;
 
 import java.util.ArrayList;
 
@@ -15,25 +17,25 @@ public class CryptoController {
     CryptoService cryptoService;
 
     @PostMapping("cryptos")
-    public String addCryptoToPortfolio(@RequestBody Crypto crypto){
-        cryptoService.addCrypto(crypto);
-        return cryptoService.printPortfolio();
+    public ResponseEntity<Crypto> addCryptoToPortfolio(@RequestBody Crypto crypto){
+        cryptoService.printPortfolio();
+        return ResponseEntity.ok(cryptoService.addCrypto(crypto));
     }
 
     @GetMapping("cryptos")
-    public ArrayList<Crypto> getCryptos(@RequestParam(required = false) String sort){
+    public ResponseEntity<ArrayList<Crypto>> getCryptos(@RequestParam(required = false) String sort){
         cryptoService.sortPortfolio(sort);
-        return cryptoService.getPortfolio();
+        return ResponseEntity.ok(cryptoService.getPortfolio());
     }
 
     @GetMapping("cryptos/{id}")
-    public String getCryptoDetailsById(@PathVariable Integer id){
-        return cryptoService.getCryptoById(id).toString();
+    public ResponseEntity<Crypto> getCryptoDetailsById(@PathVariable Integer id){
+        return ResponseEntity.ok(cryptoService.getCryptoById(id));
     }
 
     @PutMapping("cryptos/{id}")
-    public String updateCryptoById(@RequestBody Crypto updateData, @PathVariable Integer id){
-        return cryptoService.updateCryptoById(updateData, id).toString();
+    public ResponseEntity<Crypto> updateCryptoById(@RequestBody Crypto updateData, @PathVariable Integer id){
+        return ResponseEntity.ok(cryptoService.updateCryptoById(updateData, id));
     }
 
     @GetMapping("portfolio-value")
