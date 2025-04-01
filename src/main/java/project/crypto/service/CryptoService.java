@@ -8,7 +8,7 @@ import java.util.*;
 @Service
 public class CryptoService {
     private final ArrayList<Crypto> portfolio = new ArrayList<>();
-//    private final SortTypes DEFAULT_SORT_TYPE = SortTypes.SORT_BY_NAME;
+    private final String DEFAULT_SORT_TYPE = "name";
 
 
     public Crypto addCrypto(Crypto crypto){
@@ -37,23 +37,17 @@ public class CryptoService {
     }
 
     public void sortPortfolio(String sort){
-//        SortTypes sortType = convertToEnum(sort);
-        switch (sort) {
+        String sortType = DEFAULT_SORT_TYPE;
+        if (sort != null) {
+            sortType = sort;
+        }
+        switch (sortType) {
             case "name" -> portfolio.sort(Comparator.comparing(Crypto::getName));
             case "price" -> portfolio.sort(Comparator.comparing(Crypto::getPrice));
             case "quantity" -> portfolio.sort(Comparator.comparing(Crypto::getQuantity));
         }
     }
 
-//    private SortTypes convertToEnum(String query){
-//        ArrayList<SortTypes> sortTypes = new ArrayList<>(EnumSet.allOf(SortTypes.class));
-//        for (SortTypes type : sortTypes) {
-//            if (type.getName().equals(query)) {
-//                return type;
-//            }
-//        }
-//        return DEFAULT_SORT_TYPE;
-//    }
 
     public Crypto updateCryptoById(Crypto updateData, Integer id) {
         Crypto updatedCrypto = this.getCryptoById(id);
