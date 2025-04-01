@@ -17,7 +17,6 @@ public class CryptoController {
 
     @PostMapping("cryptos")
     public ResponseEntity<Crypto> addCryptoToPortfolio(@RequestBody Crypto crypto){
-        cryptoService.printPortfolio();
         return ResponseEntity.ok(cryptoService.addCrypto(crypto));
     }
 
