@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.crypto.model.Crypto;
 import project.crypto.service.CryptoService;
-import project.crypto.service.SortTypes;
 
 import java.util.ArrayList;
 
